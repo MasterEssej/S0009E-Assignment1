@@ -100,11 +100,10 @@ public:
 	}
 	float& operator[](const unsigned int i)
 	{
-		float no;
+		float no = -1;
 
 		if (i > 2)
 		{
-			no = -1;
 			std::cerr << "Error\n";
 		}
 		else if (i == 0)

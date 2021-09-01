@@ -95,22 +95,21 @@ public:
 	}
 	bool operator!=(const vec4& rhs)
 	{
-		if (x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w)
-		{
-			return false;
-		}
-		else
+		if (x != rhs.x || y != rhs.y || z != rhs.z || w != rhs.w)
 		{
 			return true;
 		}
+		else
+		{
+			return false;
+		}
 	}
-	float& operator[](const unsigned int i)
+	float operator[](const unsigned int i)
 	{
-		float no;
+		float no = -1;
 
 		if (i > 3)
 		{
-			no = -1;
 			std::cerr << "Error\n";
 		}
 		else if (i == 0)
