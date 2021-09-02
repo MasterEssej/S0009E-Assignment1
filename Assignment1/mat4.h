@@ -93,7 +93,68 @@ public:
 	}
 #pragma endregion
 
-	float determinant(const mat4& m)
+	float determinant(const mat4& tm)
+	{
+		float d =
+			(tm.m[0].x *
+				(tm.m[1].y * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z)
+					- tm.m[1].z * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y)
+					+ tm.m[1].w * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y))
+
+				- tm.m[0].y *
+				(tm.m[1].x * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z)
+					- tm.m[1].z * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
+					+ tm.m[1].w * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x))
+
+				+ tm.m[0].z *
+				(tm.m[1].x * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y)
+					- tm.m[1].y * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
+					+ tm.m[1].w * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x))
+
+				- tm.m[0].w *
+				(tm.m[1].x * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y)
+					- tm.m[1].y * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x)
+					+ tm.m[1].z * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x))
+
+				);
+
+		return d;
+	}
+	mat4 inverse(const mat4& tm)
+	{
+
+	}
+	mat4 transpose(const mat4& tm)
+	{
+		mat4 temp;
+		vec4 tpose;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int k = 0; k < 4; k++)
+			{
+				tpose.setElement(k, tm.m[k].getElement(i));
+			}
+			temp[i] = tpose;
+		}
+		return temp;
+	}
+	mat4 rotationx(const float rad)
+	{
+
+	}
+	mat4 rotationy(const float rad)
+	{
+
+	}
+	mat4 rotationz(const float rad)
+	{
+
+	}
+	mat4 rotationw(const float rad)
+	{
+
+	}
+	mat4 rotationaxis(const vec3& v, const float rad)
 	{
 
 	}

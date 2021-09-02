@@ -12,6 +12,6 @@ int main()
 	mat4 m(v1, v2, v3, v4);
 	mat4 a;
 
-	a = m.transpose(m);
+	a.transpose(m);
 	return 0;
 }

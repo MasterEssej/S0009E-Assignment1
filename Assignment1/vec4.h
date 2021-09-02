@@ -174,7 +174,7 @@ public:
 		}
 		return 0;
 	}
-	float getElement(const int i, const float v)
+	float getElement(const int i)const
 	{
 		if (i > 3)
 		{
