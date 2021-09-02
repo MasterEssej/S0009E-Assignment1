@@ -29,6 +29,22 @@ public:
 	}
 	mat4 operator*(const mat4& rhs)
 	{
+		mat4 tempm;
+		for (int i = 0; i < 4; i++)
+		{
+			vec4 tpose;
+			for (int j = 0; j < 4; j++)
+			{
+				vec4 tempv = rhs.m[j];
+				tpose.setElement(j, tempv[i]);
+			}
+			for (int k = 0; k < 4; k++)
+			{
+				tempm[k].setElement(i, m[k].dot(m[k], tpose));
+			}
+		}
+
+		/*
 		mat4 temp;
 		mat4 temp2;
 		int i, j, k;
@@ -40,6 +56,7 @@ public:
 					temp[i][j] += m[i][k] * temp2[k][j];
 			}
 		}
+		return temp;*/
 	}
 	bool operator==(const mat4& rhs)
 	{

@@ -35,8 +35,10 @@ public:
 #pragma region operators
 	vec3 operator=(const vec3& rhs)
 	{
-		vec3 temp(rhs.x, rhs.y, rhs.z);
-		return temp;
+		x = rhs.x;
+		y = rhs.y;
+		z = rhs.z;
+		return *this;
 	}
 	vec3 operator-()
 	{
@@ -143,6 +145,48 @@ public:
 	{
 		vec3 temp(v.x / length(v), v.y / length(v), v.z / length(v));
 		return temp;
+	}
+	float setElement(const int i, const float v)
+	{
+		if (i > 2)
+		{
+			std::cerr << "Error\n";
+			return -1;
+		}
+		else if (i == 0)
+		{
+			x = v;
+		}
+		else if (i == 1)
+		{
+			y = v;
+		}
+		else if (i == 2)
+		{
+			z = v;
+		}
+		return 0;
+	}
+	float getElement(const int i, const float v)
+	{
+		if (i > 2)
+		{
+			std::cerr << "Error\n";
+			return -1;
+		}
+		else if (i == 0)
+		{
+			return x;
+		}
+		else if (i == 1)
+		{
+			return y;
+		}
+		else if (i == 2)
+		{
+			return z;
+		}
+		return 0;
 	}
 #pragma endregion
 
