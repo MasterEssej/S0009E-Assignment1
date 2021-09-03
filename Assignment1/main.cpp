@@ -12,6 +12,16 @@ int main()
 	mat4 m(v1, v2, v3, v4);
 	mat4 a;
 
-	a = m.transpose(m);
+	/*
+	for (int i = 0; i < 4; i++)
+	{
+		a[i] = m.transpose()[i];
+	}*/
+
+	//m.transpose().print();
+
+	a = m.transpose();
+
+	a.print();
 	return 0;
 }

@@ -24,8 +24,14 @@ public:
 #pragma region operators
 	mat4 operator=(const mat4& rhs)
 	{
-		mat4 temp(rhs);
-		return temp;
+		for (int i = 0; i < 4; i++)
+		{
+			m[i].x = rhs.m[i].x;
+			m[i].y = rhs.m[i].y;
+			m[i].z = rhs.m[i].z;
+			m[i].w = rhs.m[i].w;
+		}
+		return *this;
 	}
 	mat4 operator*(const mat4& rhs)
 	{
@@ -93,38 +99,38 @@ public:
 	}
 #pragma endregion
 
-	float determinant(const mat4& tm)
+	float determinant()
 	{
 		float d =
-			(tm.m[0].x *
-				(tm.m[1].y * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z)
-					- tm.m[1].z * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y)
-					+ tm.m[1].w * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y))
+			(m[0].x *
+				(m[1].y * (m[2].z * m[3].w - m[2].w * m[3].z)
+					- m[1].z * (m[2].y * m[3].w - m[2].w * m[3].y)
+					+ m[1].w * (m[2].y * m[3].z - m[2].z * m[3].y))
 
-				- tm.m[0].y *
-				(tm.m[1].x * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z)
-					- tm.m[1].z * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
-					+ tm.m[1].w * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x))
+				- m[0].y *
+				(m[1].x * (m[2].z * m[3].w - m[2].w * m[3].z)
+					- m[1].z * (m[2].x * m[3].w - m[2].w * m[3].x)
+					+ m[1].w * (m[2].x * m[3].z - m[2].z * m[3].x))
 
-				+ tm.m[0].z *
-				(tm.m[1].x * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y)
-					- tm.m[1].y * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
-					+ tm.m[1].w * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x))
+				+ m[0].z *
+				(m[1].x * (m[2].y * m[3].w - m[2].w * m[3].y)
+					- m[1].y * (m[2].x * m[3].w - m[2].w * m[3].x)
+					+ m[1].w * (m[2].x * m[3].y - m[2].y * m[3].x))
 
-				- tm.m[0].w *
-				(tm.m[1].x * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y)
-					- tm.m[1].y * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x)
-					+ tm.m[1].z * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x))
+				- m[0].w *
+				(m[1].x * (m[2].y * m[3].z - m[2].z * m[3].y)
+					- m[1].y * (m[2].x * m[3].z - m[2].z * m[3].x)
+					+ m[1].z * (m[2].x * m[3].y - m[2].y * m[3].x))
 
 				);
 
 		return d;
 	}
-	mat4 inverse(const mat4& tm)
+	mat4 inverse()
 	{
-
+		
 	}
-	mat4 transpose(const mat4& tm)
+	mat4 transpose()
 	{
 		mat4 temp;
 		vec4 tpose;
@@ -132,7 +138,7 @@ public:
 		{
 			for (int k = 0; k < 4; k++)
 			{
-				tpose.setElement(k, tm.m[k].getElement(i));
+				tpose.setElement(k, m[k].getElement(i));
 			}
 			temp[i] = tpose;
 		}
@@ -150,13 +156,17 @@ public:
 	{
 
 	}
-	mat4 rotationw(const float rad)
-	{
-
-	}
 	mat4 rotationaxis(const vec3& v, const float rad)
 	{
 
+	}
+	int print()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			m[i].print();
+		}
+		return 0;
 	}
 
 };

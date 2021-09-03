@@ -188,6 +188,11 @@ public:
 		}
 		return 0;
 	}
+	int print()const
+	{
+		std::cout << x << ", " << y << ", " << z << std::endl;
+		return 0;
+	}
 #pragma endregion
 
 };

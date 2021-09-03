@@ -109,8 +109,6 @@ public:
 	}
 	float operator[](const unsigned int i)
 	{
-		float no = -1;
-
 		if (i > 3)
 		{
 			std::cerr << "Error\n";
@@ -131,7 +129,7 @@ public:
 		{
 			return w;
 		}
-		return no;
+		return -1;
 	}
 #pragma endregion
 
@@ -197,6 +195,11 @@ public:
 		{
 			return w;
 		}
+		return 0;
+	}
+	int print()const
+	{
+		std::cout << x << ", " << y << ", " << z << ", " << w << std::endl;
 		return 0;
 	}
 #pragma endregion
