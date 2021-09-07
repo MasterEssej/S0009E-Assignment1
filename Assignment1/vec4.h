@@ -131,6 +131,30 @@ public:
 		}
 		return -1;
 	}
+	const float operator[](const unsigned int i)const
+	{
+		if (i > 3)
+		{
+			std::cerr << "Error\n";
+		}
+		else if (i == 0)
+		{
+			return x;
+		}
+		else if (i == 1)
+		{
+			return y;
+		}
+		else if (i == 2)
+		{
+			return z;
+		}
+		else if (i == 3)
+		{
+			return w;
+		}
+		return -1;
+	}
 #pragma endregion
 
 #pragma region functions

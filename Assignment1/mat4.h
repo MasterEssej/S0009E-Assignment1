@@ -97,6 +97,17 @@ public:
 			return m[i];
 		}
 	}
+	const vec4& operator[](const unsigned int i)const
+	{
+		if (i > 3)
+		{
+			std::cerr << "Error\n";
+		}
+		else
+		{
+			return m[i];
+		}
+	}
 #pragma endregion
 
 	float determinant()
@@ -126,8 +137,78 @@ public:
 
 		return d;
 	}
-	mat4 inverse()
+	mat4 inverse(const mat4& tm)
 	{
+
+		mat4 c(m[0], m[1], m[2], m[3]);//(m[0], m[1], m[2], m[3]);
+		float deter = c.determinant();
+		if (deter == 0)
+		{
+			mat4 temp;
+			return temp;
+		}
+		else
+		{
+			mat4 temp;
+			temp[0].x = tm.m[1].y * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z) //a corrected
+				- tm.m[1].z * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y)
+				+ tm.m[1].w * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y);
+			temp[0].y = tm.m[1].x * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z) //b corrected
+				- tm.m[1].z * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
+				+ tm.m[1].w * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x);
+			temp[0].z = tm.m[1].x * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y) //c corrected
+				- tm.m[1].y * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
+				+ tm.m[1].w * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x);
+			temp[0].w = tm.m[1].x * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y) //d corrected
+				- tm.m[1].y * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x)
+				+ tm.m[1].z * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x);
+			temp[1].x = tm.m[0].y * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z) //e corrected
+				- tm.m[0].z * (tm.m[2].y * tm.m[3].w - tm.m[2].w * tm.m[3].y)
+				+ tm.m[0].w * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y);
+			temp[1].y = tm.m[0].x * (tm.m[2].z * tm.m[3].w - tm.m[2].w * tm.m[3].z) //f corrected
+				- tm.m[0].z * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
+				+ tm.m[0].w * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x);
+			temp[1].z = tm.m[0].x * (tm.m[2].y * tm.m[3].w * tm.m[2].w * tm.m[3].y) //g corrected
+				- tm.m[0].y * (tm.m[2].x * tm.m[3].w - tm.m[2].w * tm.m[3].x)
+				+ tm.m[0].w * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x);
+			temp[1].w = tm.m[0].x * (tm.m[2].y * tm.m[3].z - tm.m[2].z * tm.m[3].y) //h corrected
+				- tm.m[0].y * (tm.m[2].x * tm.m[3].z - tm.m[2].z * tm.m[3].x)
+				+ tm.m[0].z * (tm.m[2].x * tm.m[3].y - tm.m[2].y * tm.m[3].x);
+			temp[2].x = tm.m[0].y * (tm.m[1].z * tm.m[3].w - tm.m[1].w * tm.m[3].z) //i corrected
+				- tm.m[0].z * (tm.m[1].y * tm.m[3].w - tm.m[1].w * tm.m[3].y)
+				+ tm.m[0].w * (tm.m[1].y * tm.m[3].z - tm.m[1].z * tm.m[3].y);
+			temp[2].y = tm.m[0].x * (tm.m[1].z * tm.m[3].w - tm.m[1].w * tm.m[3].z) //j
+				- tm.m[0].z * (tm.m[1].x * tm.m[3].w - tm.m[1].w * tm.m[3].x)
+				+ tm.m[0].w * (tm.m[1].x * tm.m[3].z - tm.m[1].z * tm.m[3].x);
+			temp[2].z = tm.m[0].x * (tm.m[1].y * tm.m[3].w - tm.m[1].w * tm.m[3].y) //k
+				- tm.m[0].y * (tm.m[1].x * tm.m[3].w - tm.m[1].w * tm.m[3].x)
+				+ tm.m[0].w * (tm.m[1].x * tm.m[3].y - tm.m[1].y * tm.m[3].x);
+			temp[2].w = tm.m[0].x * (tm.m[1].y * tm.m[3].z - tm.m[1].z * tm.m[3].y) //L
+				- tm.m[0].y * (tm.m[1].x * tm.m[3].z - tm.m[1].z * tm.m[3].x)
+				+ tm.m[0].z * (tm.m[1].x * tm.m[3].y - tm.m[1].y * tm.m[3].x);
+			temp[3].x = tm.m[0].y * (tm.m[1].z * tm.m[2].w - tm.m[1].w * tm.m[2].z) //m
+				- tm.m[0].z * (tm.m[1].y * tm.m[2].w - tm.m[1].w * tm.m[2].y)
+				+ tm.m[0].w * (tm.m[1].y * tm.m[2].z - tm.m[1].z * tm.m[2].y);
+			temp[3].y = tm.m[0].x * (tm.m[1].z * tm.m[2].w - tm.m[1].w * tm.m[2].z) //n
+				- tm.m[0].z * (tm.m[1].x * tm.m[2].w - tm.m[1].w * tm.m[2].x)
+				+ tm.m[0].w * (tm.m[1].x * tm.m[2].z - tm.m[1].z * tm.m[2].x);
+			temp[3].z = tm.m[3].z * (tm.m[1].y * tm.m[2].w - tm.m[1].w * tm.m[2].y) //o
+				- tm.m[0].y * (tm.m[1].x * tm.m[2].w - tm.m[1].w * tm.m[2].x)
+				+ tm.m[0].w * (tm.m[1].x * tm.m[2].y - tm.m[1].y * tm.m[2].x);
+			temp[3].w = tm.m[0].x * (tm.m[1].y * tm.m[2].z - tm.m[1].z * tm.m[2].y) //p corrected
+				- tm.m[0].y * (tm.m[1].x * tm.m[2].z - tm.m[1].z * tm.m[2].x)
+				+ tm.m[0].z * (tm.m[1].x * tm.m[2].y - tm.m[1].y * tm.m[2].x);
+
+			//adjugate and then multiply the adjugate by (1/determinant) using original matrix
+			temp = temp.transpose();
+			for (int i = 0; i < 4; i++) {
+				temp[i].x = (1 / deter) * temp[i].x;
+				temp[i].y = (1 / deter) * temp[i].y;
+				temp[i].z = (1 / deter) * temp[i].z;
+				temp[i].w = (1 / deter) * temp[i].w;
+			}
+			return temp;
+		}
 		
 	}
 	mat4 transpose()
@@ -146,15 +227,36 @@ public:
 	}
 	mat4 rotationx(const float rad)
 	{
-
+		mat4 xrot;
+		xrot.m[0].x = 1;
+		xrot.m[1].y = cos(rad);
+		xrot.m[1].z = sin(rad);
+		xrot.m[2].y = -sin(rad);
+		xrot.m[2].z = cos(rad);
+		xrot.m[3].w = 1;
+		return xrot;
 	}
 	mat4 rotationy(const float rad)
 	{
-
+		mat4 yrot;
+		yrot.m[0].x = cos(rad);
+		yrot.m[0].y = -sin(rad);
+		yrot.m[1].z = 1;
+		yrot.m[2].y = sin(rad);
+		yrot.m[2].z = cos(rad);
+		yrot.m[3].w = 1;
+		return yrot;
 	}
 	mat4 rotationz(const float rad)
 	{
-
+		mat4 zrot;
+		zrot.m[0].x = cos(rad);
+		zrot.m[0].y = sin(rad);
+		zrot.m[1].z = -sin(rad);
+		zrot.m[2].y = cos(rad);
+		zrot.m[2].z = 1;
+		zrot.m[3].w = 1;
+		return zrot;
 	}
 	mat4 rotationaxis(const vec3& v, const float rad)
 	{
